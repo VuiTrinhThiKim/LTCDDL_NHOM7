@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 
 
@@ -24,6 +25,7 @@ use App\Http\Controllers\OrderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/test', [ProductController::class, 'show_Brand']);
 //Web page
 Route::get('/', [HomeController::class, 'index']);
@@ -54,9 +56,15 @@ Route::post('/tao-tai-khoan', [CustomerController::class, 'create_customer']);
 Route::post('/dang-nhap', [CustomerController::class, 'login']);
 Route::get('/dang-xuat', [CustomerController::class, 'logout']);
 
+// ----- yêu thích 
+// Lấy tất cả
+Route::get('/yeu-thich', [FavoriteController::class, 'view_all']);
+// Yêu thích hoặc bỏ yêu thích
+Route::post('/favorites', [FavoriteController::class, 'favorites']);
+
 Route::get('/tai-khoan/{customer_id}', [CustomerController::class, 'show_info']);
 //Admin page
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function () {
 
 	//Show Login Admin Panel
 	Route::get('/', [AdminController::class, 'index']);
@@ -68,7 +76,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/logout', [AdminController::class, 'logout']);
 	//Show Add New Addmin Account
 	Route::get('/create', [AdminController::class, 'showCreate']);
-	Route::group(['prefix'=>'category'], function(){
+	Route::group(['prefix' => 'category'], function () {
 		//All Categories
 		Route::get('/view-all', [CategoryController::class, 'view_all']);
 		//Create Category
@@ -90,7 +98,7 @@ Route::prefix('admin')->group(function(){
 		Route::get('/filter', [CategoryController::class, 'filter']);
 	});
 
-	Route::group(['prefix'=>'brand'], function(){
+	Route::group(['prefix' => 'brand'], function () {
 		//All Brands
 		Route::get('/view-all', [BrandController::class, 'view_all']);
 		//Create Brand
@@ -112,7 +120,7 @@ Route::prefix('admin')->group(function(){
 		Route::get('/filter', [BrandController::class, 'filter']);
 	});
 
-	Route::group(['prefix'=>'product'], function(){
+	Route::group(['prefix' => 'product'], function () {
 		//All Product
 		Route::get('/view-all', [ProductController::class, 'view_all']);
 		//Add Product
@@ -134,7 +142,7 @@ Route::prefix('admin')->group(function(){
 		Route::get('/filter', [ProductController::class, 'filter']);
 	});
 
-	Route::group(['prefix'=>'member'], function(){
+	Route::group(['prefix' => 'member'], function () {
 		//All Admin
 		Route::get('/view-all', [AdminController::class, 'view_all']);
 		//Add Admin
@@ -158,14 +166,14 @@ Route::prefix('admin')->group(function(){
 		Route::post('/change-password/{admin_id}', [AdminController::class, 'change_password']);
 	});
 
-	Route::group(['prefix'=>'customer'], function(){
+	Route::group(['prefix' => 'customer'], function () {
 		//All Customer
 		Route::get('/view-all', [CustomerController::class, 'view_all']);
 		//Add Customer
 		//Route::get('/add', [CustomerController::class, 'create']);
 	});
 
-	Route::group(['prefix'=>'order'], function(){
+	Route::group(['prefix' => 'order'], function () {
 		//All Order
 		Route::get('/view-all', [OrderController::class, 'view_all']);
 

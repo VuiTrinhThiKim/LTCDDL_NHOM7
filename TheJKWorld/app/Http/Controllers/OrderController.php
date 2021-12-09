@@ -15,7 +15,7 @@ use Mail;
 
 class OrderController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -32,13 +32,13 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function loginAuthentication() {
+    public function loginAuthentication()
+    {
         $ad_username = Session::get('ad_username');
 
-        if($ad_username){
+        if ($ad_username) {
             return Redirect::to('admin_login_view');
-        }
-        else {
+        } else {
             return Redirect::to('admin')->send('Vui lòng đăng nhập');
         }
     }
@@ -104,16 +104,17 @@ class OrderController extends Controller
         //
     }
 
-    public function view_all(){
+    public function view_all()
+    {
 
         $this->loginAuthentication();
 
         $orders = Order::join('customers', 'customers.customer_id', '=', 'orders.customer_id')
-                        ->join('shipping', 'shipping.shipping_id', '=', 'orders.shipping_id')
-                        ->join('payment', 'payment.payment_id', '=', 'orders.payment_id')
-                        ->join('status', 'status.status_id', '=', 'orders.status_id')
-                        ->orderbyDesc('orders.order_id')
-                        ->paginate(5);
+            ->join('shipping', 'shipping.shipping_id', '=', 'orders.shipping_id')
+            ->join('payment', 'payment.payment_id', '=', 'orders.payment_id')
+            ->join('status', 'status.status_id', '=', 'orders.status_id')
+            ->orderbyDesc('orders.order_id')
+            ->paginate(5);
         //dd($brands->links());
         $count_order = Order::count();
         $manager_order = view('admin.order.all_orders_view')->with('orders', $orders);
@@ -121,16 +122,17 @@ class OrderController extends Controller
         return view('admin_layout_view')->with('admin.order.all_orders_view', $manager_order);
     }
 
-    public function pendding_orders(){
+    public function pendding_orders()
+    {
         $this->loginAuthentication();
 
         $orders = Order::join('customers', 'customers.customer_id', '=', 'orders.customer_id')
-                        ->join('shipping', 'shipping.shipping_id', '=', 'orders.shipping_id')
-                        ->join('payment', 'payment.payment_id', '=', 'orders.payment_id')
-                        ->join('status', 'status.status_id', '=', 'orders.status_id')
-                        ->where('orders.status_id', 1)
-                        ->orderbyDesc('orders.order_id')
-                        ->paginate(5);
+            ->join('shipping', 'shipping.shipping_id', '=', 'orders.shipping_id')
+            ->join('payment', 'payment.payment_id', '=', 'orders.payment_id')
+            ->join('status', 'status.status_id', '=', 'orders.status_id')
+            ->where('orders.status_id', 1)
+            ->orderbyDesc('orders.order_id')
+            ->paginate(5);
         //dd($brands->links());
         $count_order = Order::count();
         $manager_order = view('admin.order.pending_orders_view')->with('orders', $orders);
@@ -138,13 +140,13 @@ class OrderController extends Controller
         return view('admin_layout_view')->with('admin.order.pending_orders_view', $manager_order);
     }
 
-    public function confirm($order_id) {
+    public function confirm($order_id)
+    {
         $order = Order::where('order_id')->get();
-
-        
     }
     //Customer order
-    public function order(Request $request) {
+    public function order(Request $request)
+    {
 
         $order  = new Order();
 
@@ -158,7 +160,7 @@ class OrderController extends Controller
         //dd($request->get('paymentMethod'));
         $order->save();
 
-        
+
         $cart_content = Cart::content();
         foreach ($cart_content as $key => $cart_item) {
 
@@ -180,19 +182,19 @@ class OrderController extends Controller
                 $customer_name = Customer::where('customer_id', $order->customer_id)->value('username');
                 Cart::destroy();
                 return view('page.checkout.thanks_view')->with('customer_name', $customer_name)
-                                                        ->with('order_id', $order->order_id);
+                    ->with('order_id', $order->order_id);
                 break;
             case 2:
                 $customer_name = Customer::where('customer_id', $order->customer_id)->value('username');
                 Cart::destroy();
                 return view('page.checkout.thanks_view')->with('customer_name', $customer_name)
-                                                        ->with('order_id', $order->order_id);
+                    ->with('order_id', $order->order_id);
                 break;
             case 3:
                 $customer_name = Customer::where('customer_id', $order->customer_id)->value('username');
                 Cart::destroy();
                 return view('page.checkout.thanks_view')->with('customer_name', $customer_name)
-                                                        ->with('order_id', $order->order_id);
+                    ->with('order_id', $order->order_id);
                 break;
             default:
                 echo 'default';
@@ -208,5 +210,5 @@ class OrderController extends Controller
         $to_email = Customer::where('customer_id', $shipping_detail->value('customer_id'))->value('email');
 
     }
-    **/
+     **/
 }

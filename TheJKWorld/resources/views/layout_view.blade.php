@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Trang chủ | The JK World</title>
     <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/sweetalert.css')}}" rel="stylesheet">
@@ -17,22 +19,25 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <!--<link rel="shortcut icon" href="{{asset('frontend/images/ico/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">-->
-</head><!--/head-->
+</head>
+<!--/head-->
 
 <body>
-    <?php 
+    <?php
     $keywords = Session::get('keywords');
     $customer_id = Session::get('customer_id');
     $shipping_id = Session::get('shipping_id');
     ?>
-    <header id="header"><!--header-->
-        <div class="header_top"><!--header_top-->
+    <header id="header">
+        <!--header-->
+        <div class="header_top">
+            <!--header_top-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -58,9 +63,11 @@
                     </div>
                 </div>
             </div>
-        </div><!--/header_top-->
-        
-        <div class="header-middle"><!--header-middle-->
+        </div>
+        <!--/header_top-->
+
+        <div class="header-middle">
+            <!--header-middle-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -96,65 +103,63 @@
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 <?php
-                                    $customer_name = Session::get('username');
-                                    if ($customer_name != null) {
+                                $customer_name = Session::get('username');
+                                if ($customer_name != null) {
                                 ?>
-                                        <li><a href="{{URL::to('/tai-khoan/'.$customer_id)}}"><i class="fa fa-user"></i> Chào, {{$customer_name}}</a></li>
+                                    <li><a href="{{URL::to('/tai-khoan/'.$customer_id)}}"><i class="fa fa-user"></i> Chào, {{$customer_name}}</a></li>
                                 <?php
-                                    }
-                                    else {
+                                } else {
                                 ?>
-                                        <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                    <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
                                 <?php
-                                    }
+                                }
                                 ?>
-                                
-                                <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
+
+                                <li><a href="{{ $customer_name ? URL::to('/yeu-thich') : URL::to('/login-to-checkout')}}"><i class="fa fa-star"></i> Yêu thích</a></li>
                                 <?php
-                                    
-                                    if($customer_id != null && $shipping_id != null) {
+
+                                if ($customer_id != null && $shipping_id != null) {
                                 ?>
-                                        @if(Cart::content()->isNotEmpty())
-                                        <li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                                        @else
-                                        <li><a href="{{URL::to('/xem-gio-hang')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                                        @endif
+                                    @if(Cart::content()->isNotEmpty())
+                                    <li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    @else
+                                    <li><a href="{{URL::to('/xem-gio-hang')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    @endif
                                 <?php
-                                    }
-                                    else if($customer_id != null) {
+                                } else if ($customer_id != null) {
                                 ?>
-                                        <li><a href="{{URL::to('/xem-gio-hang')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    <li><a href="{{URL::to('/xem-gio-hang')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
                                 <?php
-                                    }
-                                    else{
+                                } else {
                                 ?>
-                                        <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
                                 <?php
-                                    }
+                                }
                                 ?>
-                                
+
                                 <li><a href="{{URL::to('/xem-gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
                                 <?php
-                                    $customer_id = Session::get('customer_id');
-                                    if ($customer_id != null) {
+                                $customer_id = Session::get('customer_id');
+                                if ($customer_id != null) {
                                 ?>
-                                        <li><a href="{{URL::to('/dang-xuat')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+                                    <li><a href="{{URL::to('/dang-xuat')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
                                 <?php
-                                    }
-                                    else {
+                                } else {
                                 ?>
-                                        <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                    <li><a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
                                 <?php
-                                    }
+                                }
                                 ?>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!--/header-middle-->
-    
-        <div class="header-bottom"><!--header-bottom-->
+        </div>
+        <!--/header-middle-->
+
+        <div class="header-bottom">
+            <!--header-bottom-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -173,13 +178,13 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Sản phẩm</a></li>
                                     </ul>
-                                </li> 
+                                </li>
                                 <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
-                                </li> 
+                                </li>
                                 <li><a href="{{URL::to('/xem-gio-hang')}}">Giỏ hàng</a></li>
                                 <li><a href="{{URL::to('/lien-he')}}">Liên hệ</a></li>
                             </ul>
@@ -189,27 +194,32 @@
                         <div class="search_box pull-right">
                             <form action="{{URL::to('/tim-kiem')}}" method="get">
                                 {{csrf_field()}}
-                                <input type="text" id="keywords" name="keywords" value="{{$keywords}}" placeholder="Nhập nội dung tìm kiếm"/>
+                                <input type="text" id="keywords" name="keywords" value="{{$keywords}}" placeholder="Nhập nội dung tìm kiếm" />
                                 <button type="submit" style="margin-top: 0;" name="search" class="btn btn-default btn-search"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!--/header-bottom-->
-    </header><!--/header-->
-    
-    <section id="slider"><!--slider-->
+        </div>
+        <!--/header-bottom-->
+    </header>
+    <!--/header-->
+
+    <section id="slider">
+        <!--slider-->
         @yield('slider')
-    </section><!--/slider-->
-    
+    </section>
+    <!--/slider-->
+
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
                         <h2>Danh mục sản phẩm</h2>
-                        <div class="panel-group category-products" id="accordian"><!--category-products-->
+                        <div class="panel-group category-products" id="accordian">
+                            <!--category-products-->
                             @foreach($categories_actived as $key => $category)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -220,13 +230,15 @@
                                         </a>
                                     </h4>
                                 </div>
-                                
+
                             </div>
-                            
+
                             @endforeach
-                        </div><!--/category-products-->
-                    
-                        <div class="brands_products"><!--brands_products-->
+                        </div>
+                        <!--/category-products-->
+
+                        <div class="brands_products">
+                            <!--brands_products-->
                             <h2>Thương hiệu</h2>
                             <div class="brands-name">
                                 <ul class="nav nav-pills nav-stacked">
@@ -239,33 +251,39 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        </div><!--/brands_products-->
-                        
-                        <div class="price-range"><!--price-range-->
+                        </div>
+                        <!--/brands_products-->
+
+                        <div class="price-range">
+                            <!--price-range-->
                             <h2>Khoảng giá</h2>
                             <div class="well text-center">
-                                 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                                 <b class="pull-left">0 VNĐ</b> <b class="pull-right">600.000 VNĐ</b>
+                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
+                                <b class="pull-left">0 VNĐ</b> <b class="pull-right">600.000 VNĐ</b>
                             </div>
-                        </div><!--/price-range-->
-                        
-                        <div class="shipping text-center"><!--shipping-->
+                        </div>
+                        <!--/price-range-->
+
+                        <div class="shipping text-center">
+                            <!--shipping-->
                             <img src="images/home/shipping.jpg" alt="" />
-                        </div><!--/shipping-->
-                    
+                        </div>
+                        <!--/shipping-->
+
                     </div>
                 </div>
-                
+
                 <div class="col-sm-9 padding-right">
-                    
+
                     @yield('content')
-                    
+
                 </div>
             </div>
         </div>
     </section>
-    
-    <footer id="footer"><!--Footer-->
+
+    <footer id="footer">
+        <!--Footer-->
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -290,7 +308,7 @@
                                 <h2>24 DEC 2014</h2>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-3">
                             <div class="video-gallery text-center">
                                 <a href="#">
@@ -305,7 +323,7 @@
                                 <h2>24 DEC 2014</h2>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-3">
                             <div class="video-gallery text-center">
                                 <a href="#">
@@ -320,7 +338,7 @@
                                 <h2>24 DEC 2014</h2>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-3">
                             <div class="video-gallery text-center">
                                 <a href="#">
@@ -345,7 +363,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-widget">
             <div class="container">
                 <div class="row">
@@ -402,11 +420,11 @@
                             </form>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
@@ -415,9 +433,10 @@
                 </div>
             </div>
         </div>
-        
-    </footer><!--/Footer-->
-    
+
+    </footer>
+    <!--/Footer-->
+
 
     <script src="{{asset('frontend/js/custom.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.js')}}"></script>
@@ -428,10 +447,12 @@
     <script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script src="{{asset('backend/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('frontend/js/favorites.js')}}"></script>
     <script type="text/javascript">
-        CKEDITOR.inline( 'productContent', {
+        CKEDITOR.inline('productContent', {
             removePlugins: 'toolbar'
-        } );
+        });
     </script>
 </body>
+
 </html>
