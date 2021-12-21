@@ -2,8 +2,12 @@
 
 @section('content')
 
-<div class="features_items"><!--features_items-->
+<div class="features_items">
+    <!--features_items-->
     <h2 class="title text-center">Tìm kiếm sản phẩm</h2>
+    <?php
+    $customer_id_for_fav = Session::get('customer_id');
+    ?>
     @foreach($search_product as $key => $product)
     <div class="col-sm-4">
         <div class="product-image-wrapper">
@@ -23,18 +27,28 @@
                             <p>{{$product->product_name}}</p>
                         </a>
 
-                        <button type="button" class="btn btn-default add-to-cart" name="add-to-cart" data-product_id="{{$product->product_id}}" ><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                        <button type="button" class="btn btn-default add-to-cart" name="add-to-cart" data-product_id="{{$product->product_id}}"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
                     </form>
                 </div>
             </div>
             <div class="choose">
                 <ul class="nav nav-pills nav-justified">
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                    <li>
+                        @if ($customer_id_for_fav != null)
+                        <a onclick="favoritesOrUnfavorites( '{{ $customer_id_for_fav }}', '{{ $product->product_id }}' )" class="add-to-fav">
+                            <i class="fa fa-heart"></i>
+                            Yêu thích
+                        </a>
+                        @else
+                        <a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-plus-square"></i>Thêm vào danh sách yêu thích</a>
+                        @endif
+                    </li>
                     <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    @endforeach   
-</div><!--features_items-->
+    @endforeach
+</div>
+<!--features_items-->
 @endsection
