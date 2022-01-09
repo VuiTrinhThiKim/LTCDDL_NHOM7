@@ -93,6 +93,12 @@ class FavoriteController extends Controller
             $respone_txt = 'Yêu thích sản phẩm thành công';
         }
 
+        $favorite_list = Favorite::where([
+            ['customer_id', '=', $customer],
+            ['status', '=', 1]
+        ])->select('product_id')->get();
+        Session::put('favorite_list', $favorite_list);
+
         return response()->json(['msg' => $respone_txt], 200);
     }
 

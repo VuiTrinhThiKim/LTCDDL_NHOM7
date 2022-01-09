@@ -15,6 +15,7 @@ function favoritesOrUnfavorites(customer_id, product_id) {
         },
         success: (data) => {
             window.alert(data.msg);
+            location.reload();
         },
         error: (err) => {
             console.log(err);
