@@ -7,6 +7,7 @@
     <h2 class="title text-center">Tìm kiếm sản phẩm</h2>
     <?php
     $customer_id_for_fav = Session::get('customer_id');
+    $favorite_list_items = Session::get('favorite_list');
     ?>
     @foreach($search_product as $key => $product)
     <div class="col-sm-4">
@@ -34,10 +35,15 @@
             <div class="choose">
                 <ul class="nav nav-pills nav-justified">
                     <li>
-                        @if ($customer_id_for_fav != null)
+                        @if ($customer_id_for_fav != null && $favorite_list_items != null)
                         <a onclick="favoritesOrUnfavorites( '{{ $customer_id_for_fav }}', '{{ $product->product_id }}' )" class="add-to-fav">
+                            @if($favorite_list_items->contains('product_id', $product->product_id))
+                            <i class="fa fa-heart favorited"></i>
+                            <span>Đã yêu thích</span>
+                            @else
                             <i class="fa fa-heart"></i>
-                            Yêu thích
+                            <span>Yêu thích</span>
+                            @endif
                         </a>
                         @else
                         <a href="{{URL::to('/login-to-checkout')}}"><i class="fa fa-plus-square"></i>Thêm vào danh sách yêu thích</a>

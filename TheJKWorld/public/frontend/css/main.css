@@ -984,6 +984,12 @@ h2.title {
     margin-right: 5px;
 }
 
+.choose ul li a i.favorited,
+.choose ul li a i.favorited ~ span {
+    background: none;
+    color: #ef6c7d;
+}
+
 .choose ul li a:hover {
     background: none;
     color: #ef6c7d;
