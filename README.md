@@ -6,13 +6,13 @@
 
 ## DOCUMENT
 **MÔ TẢ NGHIỆP VỤ HỆ THỐNG**
-<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/Document/MoTaNghiepVuHeThong.docx</p>
+<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/tree/main/Document/MoTaNghiepVuHeThong.docx</p>
 
 **MÔ TẢ KĨ THUẬT/CÔNG NGHỆ SỬ DỤNG**
-<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/Document/MoTaKiThuatCongNghe.docx</p>
+<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/tree/main/Document/MoTaKiThuatCongNghe.docx</p>
 
 **HƯỚNG DẪN CÀI ĐẶT**
-<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/Document/HuongDanCaiDat.docx</p>
+<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/tree/main/Document/HuongDanCaiDat.docx</p>
 
 **HƯỚNG DẪN SỬ DỤNG**
-<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/Document/HuongDanSuDung.docx</p>
+<p>https://github.com/VuiTrinhThiKim/LTCDDL_NHOM7/tree/main/Document/HuongDanSuDung.docx</p>
