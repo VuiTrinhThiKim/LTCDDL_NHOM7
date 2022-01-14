@@ -103,11 +103,11 @@
                         @if ($customer_id_for_fav != null && $favorite_list_items != null)
                         <a onclick="favoritesOrUnfavorites( '{{ $customer_id_for_fav }}', '{{ $product->product_id }}' )" class="add-to-fav">
                             @if($favorite_list_items->contains('product_id', $product->product_id))
-                            <i class="fa fa-heart"></i>
-                            Đã yêu thích
+                            <i class="fa fa-heart favorited"></i>
+                            <span>Đã yêu thích</span>
                             @else
                             <i class="fa fa-heart"></i>
-                            Yêu thích
+                            <span>Yêu thích</span>
                             @endif
                         </a>
                         @else
