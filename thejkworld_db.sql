@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 08:42 AM
+-- Generation Time: Jan 14, 2022 at 12:25 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -172,6 +172,29 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favorite`
+--
+
+CREATE TABLE `favorite` (
+  `favorite_id` bigint(20) UNSIGNED NOT NULL,
+  `status` int(11) NOT NULL,
+  `customer_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorite`
+--
+
+INSERT INTO `favorite` (`favorite_id`, `status`, `customer_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 9, 5, '2022-01-14 04:24:21', '2022-01-14 04:24:21'),
+(2, 0, 9, 6, '2022-01-14 04:24:25', '2022-01-14 04:24:28');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -201,7 +224,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (55, '2021_09_13_100616_create_posts_table', 9),
 (56, '2021_09_13_105828_create_rates_table', 10),
 (57, '2021_10_26_115327_create_status_table', 10),
-(59, '2021_08_31_100311_create_order_details_table', 11);
+(59, '2021_08_31_100311_create_order_details_table', 11),
+(60, '2021_12_08_063359_create_favorite_table', 12);
 
 -- --------------------------------------------------------
 
@@ -479,6 +503,14 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`favorite_id`),
+  ADD KEY `favorite_customer_id_foreign` (`customer_id`),
+  ADD KEY `favorite_product_id_foreign` (`product_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -586,10 +618,16 @@ ALTER TABLE `customers`
   MODIFY `customer_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `favorite`
+--
+ALTER TABLE `favorite`
+  MODIFY `favorite_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -648,6 +686,13 @@ ALTER TABLE `status`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD CONSTRAINT `favorite_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
+  ADD CONSTRAINT `favorite_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 
 --
 -- Constraints for table `orders`
