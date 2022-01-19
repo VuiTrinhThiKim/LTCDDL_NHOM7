@@ -160,7 +160,7 @@ category-tab-->
             <div class="item active">
                 @foreach($related_products_active as $key => $product)
                 <div class="col-sm-4">
-                    <a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_id)}}">
+                    <a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_slug)}}">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
@@ -178,7 +178,7 @@ category-tab-->
             <div class="item">
                 @foreach($related_products as $key => $product)
                 <div class="col-sm-4">
-                    <a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_id)}}">
+                    <a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_slug)}}">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
