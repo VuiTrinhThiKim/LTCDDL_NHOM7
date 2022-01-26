@@ -1,4 +1,4 @@
-# LTCDDL_NHOM7
+# LTCSDL_NHOM7
 **Danh sách thành viên nhóm**
 <p>Trịnh Thị Kim Vui</p>
 <p>Lý Quốc Dũng</p>
