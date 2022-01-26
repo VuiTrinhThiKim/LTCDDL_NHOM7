@@ -23,7 +23,7 @@ class HomeController extends Controller
 
         $related_products = Product::join('categories', 'categories.category_id', '=', 'products.category_id')->join('brands', 'brands.brand_id', '=', 'products.brand_id')
             ->where('categories.category_id', $category_id)->skip(3)->take(6)->get();
-
+            
     	return view('page.home_view')
     			->with('product_list', $product_list)
                 ->with('related_products_active',$related_products_active)
@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
 
     public function search(Request $request){
-
+        dd(DB::table('categories')->select('category_id', 'category_name'));
         $keywords = $request->keywords;
         $search_cate = Category::where('category_status', '1')->where('category_name', 'like', '%'.$keywords.'%')->get();
         $search_brand = Brand::where('brand_status', '1')->where('brand_name', 'like', '%'.$keywords.'%')->get();
