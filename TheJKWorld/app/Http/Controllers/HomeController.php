@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
 
     public function search(Request $request){
-        dd(DB::table('categories')->select('category_id', 'category_name'));
+        //dd(DB::table('categories')->select('category_id', 'category_name'));
         $keywords = $request->keywords;
         $search_cate = Category::where('category_status', '1')->where('category_name', 'like', '%'.$keywords.'%')->get();
         $search_brand = Brand::where('brand_status', '1')->where('brand_name', 'like', '%'.$keywords.'%')->get();
