@@ -56,7 +56,7 @@ Route::post('/tao-tai-khoan', [CustomerController::class, 'create_customer']);
 Route::post('/dang-nhap', [CustomerController::class, 'login']);
 Route::get('/dang-xuat', [CustomerController::class, 'logout']);
 
-// ----- yêu thích 
+// ----- yêu thích
 // Lấy tất cả
 Route::get('/yeu-thich', [FavoriteController::class, 'view_all']);
 // Yêu thích hoặc bỏ yêu thích
@@ -164,6 +164,7 @@ Route::prefix('admin')->group(function () {
 		//Change Password
 		Route::get('/change-password/{admin_id}', [AdminController::class, 'show_change_password']);
 		Route::post('/change-password/{admin_id}', [AdminController::class, 'change_password']);
+        Route::post('/filter_by_date', 'AdminController@filter_by_date');
 	});
 
 	Route::group(['prefix' => 'customer'], function () {
