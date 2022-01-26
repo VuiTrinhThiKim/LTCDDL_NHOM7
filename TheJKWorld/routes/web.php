@@ -178,6 +178,8 @@ Route::prefix('admin')->group(function () {
 		Route::get('/view-all', [OrderController::class, 'view_all']);
 
 		Route::get('/pendding', [OrderController::class, 'pendding_orders']);
+
+		Route::post('/confirm/{order_id}', [OrderController::class, 'confirm']);
 		//Add Admin
 		//Route::get('/add', [AdminController::class, 'create']);
 	});

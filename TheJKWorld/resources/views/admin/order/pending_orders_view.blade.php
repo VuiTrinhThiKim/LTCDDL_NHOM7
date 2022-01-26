@@ -74,7 +74,12 @@
             </td>
             <td>{{$order->status_name}}</td>
             <td>
-              <button class="btn btn-default btn-success" type="button">Xác nhận</button>
+              <form action="{{URL::to('/admin/order/confirm/'.$order->order_id)}}" method="POST">
+                {{csrf_field()}}
+                <input type="hidden" value="{{$order->order_id}}" name="orderStatus">
+                <button class="btn btn-default btn-success" type="submit">Xác nhận</button>
+              </form>
+              
             </td>
             <td>
 

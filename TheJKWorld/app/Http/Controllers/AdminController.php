@@ -37,7 +37,13 @@ class AdminController extends Controller
         
         $this->loginAuthentication();
 
-        $orders = Order::all(); 
+        $orders = Order::join('customers', 'customers.customer_id', '=', 'orders.customer_id')
+            ->join('shipping', 'shipping.shipping_id', '=', 'orders.shipping_id')
+            ->join('payment', 'payment.payment_id', '=', 'orders.payment_id')
+            ->join('status', 'status.status_id', '=', 'orders.status_id')
+            ->where('orders.status_id', 1)
+            ->orderbyDesc('orders.order_id')
+            ->paginate(5); 
 
         return view('admin.dashboard_view')->with('orders', $orders);
     }

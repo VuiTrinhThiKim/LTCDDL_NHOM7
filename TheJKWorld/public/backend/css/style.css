@@ -916,6 +916,7 @@ div#graph1,div#graph4,div#graph5,div#graph6,div#graph7,div#graph8,div#graph9 {
     z-index: 1;
 }
 .agile-Updating-grids, .agile-bottom-grid, .agile-last-grid {
+    margin: 1em 0;
     background: #eef9f0;
     padding: 2em;
     border-radius: 4px;

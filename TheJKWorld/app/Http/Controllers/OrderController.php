@@ -43,67 +43,6 @@ class OrderController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //$order = Order::
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function view_all()
     {
 
@@ -142,7 +81,13 @@ class OrderController extends Controller
 
     public function confirm($order_id)
     {
-        $order = Order::where('order_id')->get();
+        $this->loginAuthentication();
+
+        $order = Order::where('order_id',$order_id)->first();
+        $order->status_id = 2;
+        $order->save();
+
+        return redirect()->action([OrderController::class, 'pendding_orders']);
     }
     //Customer order
     public function order(Request $request)
