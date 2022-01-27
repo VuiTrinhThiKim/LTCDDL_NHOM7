@@ -34,7 +34,7 @@ class AdminController extends Controller
     }
 
     public function showDashboard(){
-        
+
         $this->loginAuthentication();
 
         $orders = Order::join('customers', 'customers.customer_id', '=', 'orders.customer_id')
@@ -43,7 +43,7 @@ class AdminController extends Controller
             ->join('status', 'status.status_id', '=', 'orders.status_id')
             ->where('orders.status_id', 1)
             ->orderbyDesc('orders.order_id')
-            ->paginate(5); 
+            ->paginate(5);
 
         return view('admin.dashboard_view')->with('orders', $orders);
     }
@@ -139,7 +139,7 @@ class AdminController extends Controller
 
             $extension = $image->getClientOriginalExtension();
             if(Admin::where('username',$admin->username)->first() == null) {
-            
+
                 $get_image_name = $image->getClientOriginalName();
                 $new_image_name = current(explode('.',$get_image_name));
                 $new_image =  $new_image_name.'-'.rand(0,128).'.'.$extension;
@@ -218,7 +218,7 @@ class AdminController extends Controller
         if(Admin::where('username',$admin->username)->where('admin_id', '<>', $admin_id)->first() != null) {
             Session::put('messMember','Lỗi: Tên đăng nhập đã được sử dụng!!!');
             return Redirect::to('/admin/member/edit/'.$admin_id);
-        } 
+        }
         $image = $request->file('adAvatar');
         if($image) {
 
@@ -319,10 +319,10 @@ class AdminController extends Controller
         $curent_password = $request->get('current_password');
         $hashed_password = $admin->password;
 
-        //Check current password and change if 
+        //Check current password and change if
         if (Hash::check($curent_password, $hashed_password)) {
-            
-            
+
+
             $new_password = $request->get('password');
             $hashed_new_password = Hash::make($new_password);
 
@@ -334,7 +334,7 @@ class AdminController extends Controller
         else {
             Session::put('messUpdate', 'Sai mật khẩu hiện tại!!!');
         }
-        
+
         $manager_admin = view('admin.change_password')->with('admin_id',$admin_id);
         return view('admin_layout_view')->with('admin.change_password', $manager_admin);
     }
@@ -394,4 +394,24 @@ class AdminController extends Controller
                 return Redirect::to('/admin/member/view-all');
         }
     }
+
+    public function filter_by_date(Request $request){
+
+        $data = $request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+
+        $get = Statistic::whereBetween('order_date', [$from_date,$to_date])->orderBy('order_date','ASC')->get();
+
+        foreach ($get as $key => $val){
+            $chart_data[] = array(
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sales' => $val->sales,
+                'profit' => $val->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
+    }
+
 }

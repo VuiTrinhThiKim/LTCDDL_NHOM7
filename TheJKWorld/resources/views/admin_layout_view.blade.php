@@ -7,9 +7,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <head>
 <title>Dashboard | The JK World</title>
+<title>Chart.js demo</title>
+<script src='Chart.min.js'></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
@@ -22,15 +24,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="{{asset('backend/css/font.css')}}" type="text/css"/>
-<link href="{{asset('backend/css/font-awesome.css')}}" rel="stylesheet"> 
+<link href="{{asset('backend/css/font-awesome.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('backend/css/morris.css')}}" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <!-- //calendar -->
 <!-- //font-awesome icons -->
 <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
-<script src="{{asset('backend/js/raphael-min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="{{asset('backend/js/morris.js')}}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+
 </head>
 <body>
 <section id="container">
@@ -73,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </ul>
         </li>
         <!-- user login dropdown end -->
-       
+
     </ul>
     <!--search & user info end-->
 </div>
@@ -91,7 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Tổng quan</span>
                     </a>
                 </li>
-                
+
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-users"></i>
@@ -260,13 +267,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('backend/js/jquery.nicescroll.js')}}"></script>
 <script src="{{asset('backend/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('backend/ckeditor/ckfinder/ckfinder.js')}}"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <!--<script src="{{asset('backend/js/jQuery-3.5.0.min.js')}}"></script>-->
 <script type="text/javascript">
     CKEDITOR.replace('productContent');
 </script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('backend/js/jquery.scrollTo.js')}}"></script>
-<!-- morris JavaScript -->	
+<!-- morris JavaScript -->
 <script>
 	$(document).ready(function() {
 		//BOX BUTTON SHOW AND CLOSE
@@ -279,12 +287,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  jQuery(this).closest('.small-graph-box').fadeOut(200);
 		  return false;
 	   });
-	   
+
 	    //CHARTS
 	    function gd(year, day, month) {
 			return new Date(year, month - 1, day).getTime();
 		}
-		
+
 		graphArea2 = Morris.Area({
 			element: 'hero-area',
 			padding: 10,
@@ -307,7 +315,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				{period: '2016 Q3', iphone: 4830, ipad: 3805, itouch: 1598},
 				{period: '2016 Q4', iphone: 15083, ipad: 8977, itouch: 5185},
 				{period: '2017 Q1', iphone: 10697, ipad: 4470, itouch: 2038},
-			
+
 			],
 			lineColors:['#eb6f6f','#926383','#eb6f6f'],
 			xkey: 'period',
@@ -318,8 +326,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			hideHover: 'auto',
 			resize: true
 		});
-		
-	   
+
+
 	});
 	</script>
 <!-- calendar -->
@@ -329,7 +337,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			$('#mycalendar').monthly({
 				mode: 'event',
-				
+
 			});
 
 			$('#mycalendar2').monthly({
@@ -354,5 +362,106 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	</script>
 	<!-- //calendar -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        chart30daysorder();
+        var chart = new Morris.Bar({
+            element: 'myfirstchart',
+            // lineColors: [#819C79, '#fc8710','#FF6541','#A4ADD3','#766B56' ],
+            pointFillColores: ['#ffffff'],
+            pointSrokeColors: ['black'],
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            parseTime: false,
+            xkey: 'period',
+            ekeys: ['order', 'sales', 'profit', 'quantity'],
+            behaveLikeLine: true,
+            labels: ['đơn hàng', 'doanh số', 'lợi nhuận', 'số lượng']
+        });
+    });
+    //
+
+                function chart30daysorder(){
+                    var _token - $('input[name="_token"]').val();
+                    $.ajax({
+                            url: "{{url('/days-order')}}",
+                            method: "POST",
+                            dataType: "JSON",
+                            data: {_token: _token},
+
+                            sucess: function (data) {
+                                chart.setData(data);
+                            }
+                        });
+                }
+    )
+
+    $('.dashboard-filter').change(function (){
+        var dashboard_value - $(this).vel();
+        var _token - $('input[name="_token"]').val();
+        $.ajax({
+            url:"{{url('/dashboard.filter')}}"
+            method:"POST",
+            dataType:"JSON",
+            data:(dashboard_value:dashboard_value,_token:_token),
+
+            success:function(data)
+        {
+             chart.setData(data);
+        }
+        });
+    });
+
+    $('#btn dashboard-filter').click(function(){
+        alert('ok')
+        var _token - $('input[name="_token"]').val();
+        var from_date = $('#datepicker').val();
+        var to_date = $('#datepicker2').val();
+            $.ajax({
+                url:"{{url('/filter-by-date')}}",
+                method:"POST"
+                dataType:"JSON"
+                data:{from_date:from_date,to_date:to_date,_token:_token},
+
+                success:function (data)
+                {
+                    chart.setData(data);
+                }
+            });
+    });
+    });
+
+</script>
+<script type="text/javascript">
+
+    $( function () {
+        $("#datepicker").datepicker();
+        $("#datepicker").datepicker();
+    });
+</script>
+</script>
+    });
+
+</script>
+
+<canvas id="buyers" width="600" height="400"></canvas>
+<script>
+    // line chart data
+    var buyerData = {
+        labels : ["January","February","March","April","May","June"],
+        datasets : [
+            {
+                fillColor : "rgba(172,194,132,0.4)",
+                strokeColor : "#ACC26D",
+                pointColor : "#fff",
+                pointStrokeColor : "#9DB86D",
+                data : [203,156,99,251,305,247]
+            }
+        ]
+    }
+    var buyers = document.getElementById('buyers').getContext('2d');
+    new Chart(buyers).Line(buyerData);
+</script>
+
 </body>
 </html>
